@@ -1,5 +1,5 @@
 /*
- * Logger.c
+ * LoggerC-File.c
  *
  *  Created on: 2022
  *      Author: Janusz Wolak
@@ -37,42 +37,22 @@
  *
  */
 
-#include "Logger.h"
+#include "LoggerC-File.h"
 
-#include <stdlib.h>
+
 #include <stdio.h>
 
-static void set_logger_level(struct EquinoxCLogger *this, enum LOG_LEVEL_TYPE logger_new_level ) {
+static void log_message (struct LoggerCFile* this, enum LOG_LEVEL_TYPE message_type, char* message) {
 
-  printf("%s\n", "Set logger level");
-  this->loggerC_level.set_loggerC_level(&this->loggerC_level, logger_new_level);
+  this->loggerC_time.get_timestamp(&this->loggerC_time);
+
 }
 
-static void set_logger_output(struct EquinoxCLogger *this, enum LOG_OUTPUT_TYPE logger_new_output) {
-
-  printf("%s\n", "Set logger output");
-  this->loggerC_output.set_loggerC_output(&this->loggerC_output, logger_new_output);
+static struct LoggerCFile new() {
+  printf("%s", "Object LoggerCFile created\n");
+  return (struct LoggerCFile) {.log_message = &log_message,
+                               .loggerC_time = LoggerCTime.new()
+                              };
 }
-
-static void log_message_with_level_type (struct EquinoxCLogger *this, enum LOG_LEVEL_TYPE logger_new_level, const char* log_message, ...) {
-
-  this->loggerC_level.get_loggerC_level(&this->loggerC_level);
-  this->loggerC_output.get_loggerC_output(&this->loggerC_output);
-
-  printf("%s", "Log Message\n");
-}
-
-static struct EquinoxCLogger new() {
-  printf("%s", "Object created\n");
-  return (struct EquinoxCLogger) {.set_logger_output = &set_logger_output,
-                                  .set_logger_level = &set_logger_level,
-                                  .mutex = PTHREAD_MUTEX_INITIALIZER,
-                                  .log_message_with_level_type = &log_message_with_level_type,
-                                  .loggerC_level = LoggerCLevel.new(),
-                                  .loggerC_output = LoggerCOutput.new(),
-                                  .loggerC_console = LoggerCConsole.new(),
-                                  .loggerC_file = LoggerCFile.new()
-                                  };
-}
-const struct EquinoxCLoggerClass EquinoxCLogger={ .new = &new };
+const struct LoggerCFileClass LoggerCFile={ .new = &new };
 

@@ -46,6 +46,8 @@
 
 #include "LoggerC-Level.h"
 #include "LoggerC-Output.h"
+#include "LoggerC-Console.h"
+#include "LoggerC-File.h"
 
 struct EquinoxCLogger {
 
@@ -55,10 +57,11 @@ struct EquinoxCLogger {
   void (*log_message_with_level_type)(struct EquinoxCLogger *this, enum LOG_LEVEL_TYPE logger_new_level, const char*, ...);
 
   /* private */
-
   pthread_mutex_t mutex;
   struct LoggerCLevel loggerC_level;
   struct LoggerCOutput loggerC_output;
+  struct LoggerCConsole loggerC_console;
+  struct LoggerCFile loggerC_file;
 };
 
 extern const struct EquinoxCLoggerClass {
