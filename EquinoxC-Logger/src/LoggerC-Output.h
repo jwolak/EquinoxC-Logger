@@ -1,5 +1,5 @@
 /*
- * LoggerC-Level.h
+ * LoggerC-Output.h
  *
  *  Created on: 2022
  *      Author: Janusz Wolak
@@ -37,30 +37,27 @@
  *
  */
 
-#ifndef SRC_LOGGERC_LEVEL_H_
-#define SRC_LOGGERC_LEVEL_H_
+#ifndef SRC_LOGGERC_OUTPUT_H_
+#define SRC_LOGGERC_OUTPUT_H_
 
-enum LOG_LEVEL_TYPE {
-  ERROR   = 1,
-  WARNING = 2,
-  DEBUG   = 3,
+enum LOG_OUTPUT_TYPE {
+  CONSOLE           = 1,
+  OUT_FILE          = 2,
+  CONSOLE_AND_FILE  = 3
 };
 
-
-struct LoggerCLevel {
+struct LoggerCOutput {
 
   /* public */
-  enum LOG_LEVEL_TYPE (*get_loggerC_level)(struct LoggerCLevel* this);
-  void (*set_loggerC_level)(struct LoggerCLevel* this, enum LOG_LEVEL_TYPE log_level);
+  void (*set_loggerC_output)(struct LoggerCOutput* this, enum LOG_OUTPUT_TYPE log_output_type);
+  enum LOG_OUTPUT_TYPE (*get_loggerC_output)(struct LoggerCOutput* this);
 
-  /*private*/
-  enum LOG_LEVEL_TYPE logger_level;
+  /* private */
+  enum LOG_OUTPUT_TYPE logger_output;
 };
 
-extern const struct LoggerCLevelClass {
-  struct LoggerCLevel (*new)();
-} LoggerCLevel;
+extern const struct LoggerCOutputClass {
+  struct LoggerCOutput (*new)();
+} LoggerCOutput;
 
-
-
-#endif /* SRC_LOGGERC_LEVEL_H_ */
+#endif /* SRC_LOGGERC_OUTPUT_H_ */

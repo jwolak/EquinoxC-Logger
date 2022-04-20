@@ -45,22 +45,21 @@
 static void set_logger_level(struct EquinoxCLogger *this, enum LOG_LEVEL_TYPE logger_new_level ) {
 
   printf("%s\n", "Set logger level");
-  /*this->logger_level = logger_new_level;*/
-
   this->loggerC_level.set_loggerC_level(&this->loggerC_level, logger_new_level);
 }
 
 static void set_logger_output(struct EquinoxCLogger *this, enum LOG_OUTPUT_TYPE logger_new_output) {
 
   printf("%s\n", "Set logger output");
-  this->logger_output = logger_new_output;
+  this->loggerC_output.set_loggerC_output(&this->loggerC_output, logger_new_output);
 }
 
 static void log_message_with_level_type (struct EquinoxCLogger *this, enum LOG_LEVEL_TYPE logger_new_level, const char* log_message, ...) {
 
   this->loggerC_level.get_loggerC_level(&this->loggerC_level);
+  this->loggerC_output.get_loggerC_output(&this->loggerC_output);
 
-  printf("%s", "Log ERROR\n");
+  printf("%s", "Log Message\n");
 }
 
 static struct EquinoxCLogger new() {
@@ -69,7 +68,8 @@ static struct EquinoxCLogger new() {
                                   .set_logger_level = &set_logger_level,
                                   .mutex = PTHREAD_MUTEX_INITIALIZER,
                                   .log_message_with_level_type = &log_message_with_level_type,
-                                  .loggerC_level = LoggerCLevel.new()};
+                                  .loggerC_level = LoggerCLevel.new(),
+                                  .loggerC_output = LoggerCOutput.new()};
 }
 const struct EquinoxCLoggerClass EquinoxCLogger={ .new = &new };
 

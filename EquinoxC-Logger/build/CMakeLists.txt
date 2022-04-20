@@ -9,9 +9,11 @@ ${SOURCE_FILES_DIR}/main.c
 #headers
 ${SOURCE_FILES_DIR}/Logger.h
 ${SOURCE_FILES_DIR}/LoggerC-Level.h
+${SOURCE_FILES_DIR}/LoggerC-Output.h
 
 #source
 ${SOURCE_FILES_DIR}/Logger.c
 ${SOURCE_FILES_DIR}/LoggerC-Level.c
+${SOURCE_FILES_DIR}/LoggerC-Output.c
 
 )

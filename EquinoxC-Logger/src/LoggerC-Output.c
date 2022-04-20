@@ -1,5 +1,5 @@
 /*
- * LoggerC-Level.h
+ *  LoggerC-Output.c
  *
  *  Created on: 2022
  *      Author: Janusz Wolak
@@ -37,30 +37,25 @@
  *
  */
 
-#ifndef SRC_LOGGERC_LEVEL_H_
-#define SRC_LOGGERC_LEVEL_H_
+#include "LoggerC-Output.h"
 
-enum LOG_LEVEL_TYPE {
-  ERROR   = 1,
-  WARNING = 2,
-  DEBUG   = 3,
-};
+#include <stdio.h>
 
+static void set_loggerC_output (struct LoggerCOutput* this, enum LOG_OUTPUT_TYPE log_output_type) {
+  printf("%s\n", "set_loggerC_output called" );
+  this->logger_output = log_output_type;
+}
 
-struct LoggerCLevel {
-
-  /* public */
-  enum LOG_LEVEL_TYPE (*get_loggerC_level)(struct LoggerCLevel* this);
-  void (*set_loggerC_level)(struct LoggerCLevel* this, enum LOG_LEVEL_TYPE log_level);
-
-  /*private*/
-  enum LOG_LEVEL_TYPE logger_level;
-};
-
-extern const struct LoggerCLevelClass {
-  struct LoggerCLevel (*new)();
-} LoggerCLevel;
+static enum LOG_OUTPUT_TYPE get_loggerC_output (struct LoggerCOutput* this) {
+  printf("%s\n", "get_loggerC_output called" );
+    return this->logger_output;
+}
 
 
-
-#endif /* SRC_LOGGERC_LEVEL_H_ */
+static struct LoggerCOutput new() {
+  printf("%s", "Object LoggerCOutput created\n");
+  return (struct LoggerCOutput) {.set_loggerC_output = &set_loggerC_output,
+                                 .get_loggerC_output = &get_loggerC_output
+                                };
+}
+const struct LoggerCOutputClass LoggerCOutput={ .new = &new };

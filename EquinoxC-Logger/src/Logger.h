@@ -45,30 +45,20 @@
 #include <stdbool.h>
 
 #include "LoggerC-Level.h"
-
-/*enum LOG_LEVEL_TYPE {
-  ERROR   = 1,
-  WARNING = 2,
-  DEBUG   = 3,
-};*/
-
-enum LOG_OUTPUT_TYPE {
-  CONSOLE           = 1,
-  OUT_FILE          = 2,
-  CONSOLE_AND_FILE  = 3
-};
+#include "LoggerC-Output.h"
 
 struct EquinoxCLogger {
-  pthread_mutex_t mutex;
-  enum LOG_LEVEL_TYPE logger_level;
-  enum LOG_OUTPUT_TYPE logger_output;
-
-  struct LoggerCLevel loggerC_level;
 
   /* public */
   void (*set_logger_level)(struct EquinoxCLogger *this, enum LOG_LEVEL_TYPE logger_new_level);
   void (*set_logger_output)(struct EquinoxCLogger *this, enum LOG_OUTPUT_TYPE logger_new_output);
   void (*log_message_with_level_type)(struct EquinoxCLogger *this, enum LOG_LEVEL_TYPE logger_new_level, const char*, ...);
+
+  /* private */
+
+  pthread_mutex_t mutex;
+  struct LoggerCLevel loggerC_level;
+  struct LoggerCOutput loggerC_output;
 };
 
 extern const struct EquinoxCLoggerClass {
