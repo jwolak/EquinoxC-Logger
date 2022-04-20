@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/UnitTestsOfEquinoxC-Logger.x86.dir/home/janusz/Documents/EquinoxC-Logger/UnitTests/Main-Tests-Run.cpp.o  -o UnitTestsOfEquinoxC-Logger.x86  -Wl,-Bstatic -lgtest -Wl,-Bdynamic -lpthread -Wl,-Bstatic -lgtest -Wl,-Bdynamic -lgmock -lpthread -lgmock 

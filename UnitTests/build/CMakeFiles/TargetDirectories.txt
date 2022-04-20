@@ -1,0 +1,3 @@
+/home/janusz/Documents/EquinoxC-Logger/UnitTests/build/CMakeFiles/rebuild_cache.dir
+/home/janusz/Documents/EquinoxC-Logger/UnitTests/build/CMakeFiles/edit_cache.dir
+/home/janusz/Documents/EquinoxC-Logger/UnitTests/build/CMakeFiles/UnitTestsOfEquinoxC-Logger.x86.dir

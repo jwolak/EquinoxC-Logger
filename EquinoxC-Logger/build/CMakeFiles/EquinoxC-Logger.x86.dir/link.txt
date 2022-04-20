@@ -1,0 +1,1 @@
+/usr/bin/cc   -rdynamic CMakeFiles/EquinoxC-Logger.x86.dir/home/janusz/Documents/EquinoxC-Logger/EquinoxC-Logger/src/main.c.o CMakeFiles/EquinoxC-Logger.x86.dir/home/janusz/Documents/EquinoxC-Logger/EquinoxC-Logger/src/Logger.c.o  -o EquinoxC-Logger.x86 

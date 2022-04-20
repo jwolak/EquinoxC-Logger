@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/janusz/Documents/EquinoxC-Logger/UnitTests/Main-Tests-Run.cpp
+gtest/gtest.h
+-
+gmock/gmock.h
+/home/janusz/Documents/EquinoxC-Logger/UnitTests/gmock/gmock.h
+
