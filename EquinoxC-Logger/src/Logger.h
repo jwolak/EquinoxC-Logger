@@ -58,16 +58,14 @@ enum LOG_OUTPUT_TYPE {
 };
 
 struct EquinoxCLogger {
-  struct EquinoxCLogger* equinoxc_logger_instance;
   pthread_mutex_t mutex;
   enum LOG_LEVEL_TYPE logger_level;
   enum LOG_OUTPUT_TYPE logger_output;
 
-  struct EquinoxCLogger* (*get_instance)(struct EquinoxCLogger *this);
+  /* public */
   void (*set_logger_level)(struct EquinoxCLogger *this, enum LOG_LEVEL_TYPE logger_new_level);
-  enum LOG_LEVEL_TYPE (*get_logger_level)(struct EquinoxCLogger *this);
   void (*set_logger_output)(struct EquinoxCLogger *this, enum LOG_OUTPUT_TYPE logger_new_output);
-  enum LOG_OUTPUT_TYPE (*get_logger_output)();
+  void (*log_message_with_level_type)(struct EquinoxCLogger *this, enum LOG_LEVEL_TYPE logger_new_level, const char*, ...);
 };
 
 extern const struct EquinoxCLoggerClass {
@@ -87,10 +85,36 @@ static void get_logger_instance() {
   pthread_mutex_unlock(&logger.mutex);
 }
 
-#define SET_LOG_LEVEL(x) {get_logger_instance();\
-                          pthread_mutex_lock(&logger.mutex);\
-                          logger.set_logger_level(&logger, x);\
-                          pthread_mutex_unlock(&logger.mutex);\
-                        }
+#define SET_LOG_LEVEL(x) { get_logger_instance();\
+                           pthread_mutex_lock(&logger.mutex);\
+                           logger.set_logger_level(&logger, x);\
+                           pthread_mutex_unlock(&logger.mutex);\
+                          }
+
+#define SET_LOG_LOGGER_OUTPUT(x) { get_logger_instance();\
+                                   pthread_mutex_lock(&logger.mutex);\
+                                   logger.set_logger_output(&logger, x);\
+                                   pthread_mutex_unlock(&logger.mutex);\
+                                  }
+
+
+#define LOG_ERROR(x, ...) { get_logger_instance();\
+                            pthread_mutex_lock(&logger.mutex);\
+                            logger.log_message_with_level_type(&logger, ERROR, x, __VA_ARGS__);\
+                            pthread_mutex_unlock(&logger.mutex);\
+                           }
+
+
+#define LOG_WARNING(x, ...) { get_logger_instance();\
+                              pthread_mutex_lock(&logger.mutex);\
+                              logger.log_message_with_level_type(&logger, WARNING, x, __VA_ARGS__);\
+                              pthread_mutex_unlock(&logger.mutex);\
+                             }
+
+#define LOG_DEBUG(x, ...) { get_logger_instance();\
+                            pthread_mutex_lock(&logger.mutex);\
+                            logger.log_message_with_level_type(&logger, DEBUG, x, __VA_ARGS__);\
+                            pthread_mutex_unlock(&logger.mutex);\
+                           }
 
 #endif /* SRC_LOGGER_H_ */

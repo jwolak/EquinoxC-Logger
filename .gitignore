@@ -51,13 +51,17 @@
 .gdb_*
 
 #direcory
-TouchstoNet/build/CMakeCache.txt
-TouchstoNet/build/CMakeFiles/
-TouchstoNet/build/Makefile
-TouchstoNet/build/cmake_install.cmake
+EquinoxC-Logger/build/CMakeCache.txt
+EquinoxC-Logger/build/CMakeFiles/
+EquinoxC-Logger/build/Makefile
+EquinoxC-Logger/build/cmake_install.cmake
+EquinoxC-Logger/build/*.log
+EquinoxC-Logger/*.log
 
 UnitTests/build/CMakeCache.txt
 UnitTests/build/CMakeFiles/
 UnitTests/build/Makefile
 UnitTests/build/cmake_install.cmake
+UnitTests/build/*.log
+UnitTests/*.log
 

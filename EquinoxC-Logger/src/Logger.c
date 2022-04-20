@@ -42,46 +42,29 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static struct EquinoxCLogger* get_instance(struct EquinoxCLogger *this) {
-
-  printf("%s", "get_instance_called\n");
-
-  pthread_mutex_lock(&this->mutex);
-  if (this->equinoxc_logger_instance == NULL) {
-    this->equinoxc_logger_instance = malloc(sizeof(struct EquinoxCLogger));
-  }
-  pthread_mutex_unlock(&this->mutex);
-
-  return this->equinoxc_logger_instance;
-}
-
 static void set_logger_level(struct EquinoxCLogger *this, enum LOG_LEVEL_TYPE logger_new_level ) {
 
   printf("%s\n", "Set logger level");
   this->logger_level = logger_new_level;
 }
 
-static enum LOG_LEVEL_TYPE get_logger_level(struct EquinoxCLogger *this) {
-
-  printf("%s\n", "Get logger level");
-  return this->logger_level;
-}
-
 static void set_logger_output(struct EquinoxCLogger *this, enum LOG_OUTPUT_TYPE logger_new_output) {
 
+  printf("%s\n", "Set logger output");
   this->logger_output = logger_new_output;
 }
 
-static enum LOG_OUTPUT_TYPE get_logger_output(struct EquinoxCLogger *this) {
+static void log_message_with_level_type (struct EquinoxCLogger *this, enum LOG_LEVEL_TYPE logger_new_level, const char* log_message, ...) {
 
-  return this->logger_output;
+  printf("%s", "Log ERROR\n");
 }
 
 static struct EquinoxCLogger new() {
   printf("%s", "Object created\n");
-  return (struct EquinoxCLogger) {.get_logger_level = &get_logger_level,
+  return (struct EquinoxCLogger) {.set_logger_output = &set_logger_output,
                                   .set_logger_level = &set_logger_level,
-                                  .mutex = PTHREAD_MUTEX_INITIALIZER};
+                                  .mutex = PTHREAD_MUTEX_INITIALIZER,
+                                  .log_message_with_level_type = &log_message_with_level_type};
 }
 const struct EquinoxCLoggerClass EquinoxCLogger={ .new = &new };
 
