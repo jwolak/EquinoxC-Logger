@@ -1,5 +1,5 @@
 /*
- * LoggerC-Level.h
+ * LoggerC-Time.h
  *
  *  Created on: 2022
  *      Author: Janusz Wolak
@@ -37,25 +37,17 @@
  *
  */
 
-#ifndef SRC_LOGGERC_LEVEL_H_
-#define SRC_LOGGERC_LEVEL_H_
+#ifndef SRC_LOGGERC_TIME_H_
+#define SRC_LOGGERC_TIME_H_
 
-#include "LoggerC-Log-Level-Type.h"
-
-struct LoggerCLevel {
-
-  /* public */
-  enum LOG_LEVEL_TYPE (*get_loggerC_level)(struct LoggerCLevel* this);
-  void (*set_loggerC_level)(struct LoggerCLevel* this, enum LOG_LEVEL_TYPE log_level);
-
-  /*private*/
-  enum LOG_LEVEL_TYPE logger_level;
+struct LoggerCTime {
+  /*public*/
+  char* (*get_timestamp)(struct LoggerCTime* this);
 };
 
-extern const struct LoggerCLevelClass {
-  struct LoggerCLevel (*new)();
-} LoggerCLevel;
+extern const struct LoggerCTimeClass {
+  struct LoggerCTime (*new)();
+} LoggerCTime;
 
 
-
-#endif /* SRC_LOGGERC_LEVEL_H_ */
+#endif /* SRC_LOGGERC_TIME_H_ */

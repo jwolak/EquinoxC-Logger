@@ -1,5 +1,5 @@
 /*
- * LoggerC-Level.h
+ * LoggerC-Log-Level-Type.h
  *
  *  Created on: 2022
  *      Author: Janusz Wolak
@@ -37,25 +37,13 @@
  *
  */
 
-#ifndef SRC_LOGGERC_LEVEL_H_
-#define SRC_LOGGERC_LEVEL_H_
+#ifndef SRC_LOGGERC_LOG_LEVEL_TYPE_H_
+#define SRC_LOGGERC_LOG_LEVEL_TYPE_H_
 
-#include "LoggerC-Log-Level-Type.h"
-
-struct LoggerCLevel {
-
-  /* public */
-  enum LOG_LEVEL_TYPE (*get_loggerC_level)(struct LoggerCLevel* this);
-  void (*set_loggerC_level)(struct LoggerCLevel* this, enum LOG_LEVEL_TYPE log_level);
-
-  /*private*/
-  enum LOG_LEVEL_TYPE logger_level;
+enum LOG_LEVEL_TYPE {
+  ERROR   = 1,
+  WARNING = 2,
+  DEBUG   = 3,
 };
 
-extern const struct LoggerCLevelClass {
-  struct LoggerCLevel (*new)();
-} LoggerCLevel;
-
-
-
-#endif /* SRC_LOGGERC_LEVEL_H_ */
+#endif /* SRC_LOGGERC_LOG_LEVEL_TYPE_H_ */

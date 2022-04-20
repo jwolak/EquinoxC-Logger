@@ -1,5 +1,5 @@
 /*
- * LoggerC-Level.h
+ * LoggerC-Console.c
  *
  *  Created on: 2022
  *      Author: Janusz Wolak
@@ -37,25 +37,21 @@
  *
  */
 
-#ifndef SRC_LOGGERC_LEVEL_H_
-#define SRC_LOGGERC_LEVEL_H_
+#include "LoggerC-Console.h"
 
-#include "LoggerC-Log-Level-Type.h"
+#include <stdio.h>
 
-struct LoggerCLevel {
+static void log_message (struct LoggerCConsole* this, enum LOG_LEVEL_TYPE message_type, char* message) {
 
-  /* public */
-  enum LOG_LEVEL_TYPE (*get_loggerC_level)(struct LoggerCLevel* this);
-  void (*set_loggerC_level)(struct LoggerCLevel* this, enum LOG_LEVEL_TYPE log_level);
+  this->loggerC_time.get_timestamp(&this->loggerC_time);
 
-  /*private*/
-  enum LOG_LEVEL_TYPE logger_level;
-};
+}
 
-extern const struct LoggerCLevelClass {
-  struct LoggerCLevel (*new)();
-} LoggerCLevel;
+static struct LoggerCConsole new() {
+  printf("%s", "Object LoggerCConsole created\n");
+  return (struct LoggerCConsole) {.log_message = &log_message,
+                                  .loggerC_time = LoggerCTime.new()
+                                 };
+}
+const struct LoggerCConsoleClass LoggerCConsole={ .new = &new };
 
-
-
-#endif /* SRC_LOGGERC_LEVEL_H_ */
