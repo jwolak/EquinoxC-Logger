@@ -1,5 +1,5 @@
 /*
- * Logger.c
+ * LoggerC-Level.c
  *
  *  Created on: 2022
  *      Author: Janusz Wolak
@@ -37,39 +37,28 @@
  *
  */
 
-#include "Logger.h"
 
-#include <stdlib.h>
+#include "LoggerC-Level.h"
+
 #include <stdio.h>
 
-static void set_logger_level(struct EquinoxCLogger *this, enum LOG_LEVEL_TYPE logger_new_level ) {
+  enum LOG_LEVEL_TYPE get_loggerC_level (struct LoggerCLevel* this) {
+    printf("%s", "get_loggerC_level called\n");
 
-  printf("%s\n", "Set logger level");
-  /*this->logger_level = logger_new_level;*/
+    return this->logger_level;
+  }
 
-  this->loggerC_level.set_loggerC_level(&this->loggerC_level, logger_new_level);
+  void set_loggerC_level (struct LoggerCLevel* this, enum LOG_LEVEL_TYPE log_level) {
+    printf("%s", "set_loggerC_level called\n");
+
+    this->logger_level = log_level;
+  }
+
+static struct LoggerCLevel new() {
+  printf("%s", "Object LoggerCLevel created\n");
+  return (struct LoggerCLevel) {.get_loggerC_level = &get_loggerC_level,
+                                .set_loggerC_level = &set_loggerC_level
+                               };
 }
-
-static void set_logger_output(struct EquinoxCLogger *this, enum LOG_OUTPUT_TYPE logger_new_output) {
-
-  printf("%s\n", "Set logger output");
-  this->logger_output = logger_new_output;
-}
-
-static void log_message_with_level_type (struct EquinoxCLogger *this, enum LOG_LEVEL_TYPE logger_new_level, const char* log_message, ...) {
-
-  this->loggerC_level.get_loggerC_level(&this->loggerC_level);
-
-  printf("%s", "Log ERROR\n");
-}
-
-static struct EquinoxCLogger new() {
-  printf("%s", "Object created\n");
-  return (struct EquinoxCLogger) {.set_logger_output = &set_logger_output,
-                                  .set_logger_level = &set_logger_level,
-                                  .mutex = PTHREAD_MUTEX_INITIALIZER,
-                                  .log_message_with_level_type = &log_message_with_level_type,
-                                  .loggerC_level = LoggerCLevel.new()};
-}
-const struct EquinoxCLoggerClass EquinoxCLogger={ .new = &new };
+const struct LoggerCLevelClass LoggerCLevel={ .new = &new };
 

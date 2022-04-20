@@ -44,12 +44,13 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+#include "LoggerC-Level.h"
 
-enum LOG_LEVEL_TYPE {
+/*enum LOG_LEVEL_TYPE {
   ERROR   = 1,
   WARNING = 2,
   DEBUG   = 3,
-};
+};*/
 
 enum LOG_OUTPUT_TYPE {
   CONSOLE           = 1,
@@ -61,6 +62,8 @@ struct EquinoxCLogger {
   pthread_mutex_t mutex;
   enum LOG_LEVEL_TYPE logger_level;
   enum LOG_OUTPUT_TYPE logger_output;
+
+  struct LoggerCLevel loggerC_level;
 
   /* public */
   void (*set_logger_level)(struct EquinoxCLogger *this, enum LOG_LEVEL_TYPE logger_new_level);

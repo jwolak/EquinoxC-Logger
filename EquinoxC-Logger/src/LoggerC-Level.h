@@ -1,5 +1,5 @@
 /*
- * Logger.c
+ * LoggerC-Level.h
  *
  *  Created on: 2022
  *      Author: Janusz Wolak
@@ -37,39 +37,29 @@
  *
  */
 
-#include "Logger.h"
+#ifndef SRC_LOGGERC_LEVEL_H_
+#define SRC_LOGGERC_LEVEL_H_
 
-#include <stdlib.h>
-#include <stdio.h>
+enum LOG_LEVEL_TYPE {
+  ERROR   = 1,
+  WARNING = 2,
+  DEBUG   = 3,
+};
 
-static void set_logger_level(struct EquinoxCLogger *this, enum LOG_LEVEL_TYPE logger_new_level ) {
 
-  printf("%s\n", "Set logger level");
-  /*this->logger_level = logger_new_level;*/
+struct LoggerCLevel {
+  /* public */
+  enum LOG_LEVEL_TYPE (*get_loggerC_level)(struct LoggerCLevel* this);
+  void (*set_loggerC_level)(struct LoggerCLevel* this, enum LOG_LEVEL_TYPE log_level);
 
-  this->loggerC_level.set_loggerC_level(&this->loggerC_level, logger_new_level);
-}
+  /*private*/
+  enum LOG_LEVEL_TYPE logger_level;
+};
 
-static void set_logger_output(struct EquinoxCLogger *this, enum LOG_OUTPUT_TYPE logger_new_output) {
+extern const struct LoggerCLevelClass {
+  struct LoggerCLevel (*new)();
+} LoggerCLevel;
 
-  printf("%s\n", "Set logger output");
-  this->logger_output = logger_new_output;
-}
 
-static void log_message_with_level_type (struct EquinoxCLogger *this, enum LOG_LEVEL_TYPE logger_new_level, const char* log_message, ...) {
 
-  this->loggerC_level.get_loggerC_level(&this->loggerC_level);
-
-  printf("%s", "Log ERROR\n");
-}
-
-static struct EquinoxCLogger new() {
-  printf("%s", "Object created\n");
-  return (struct EquinoxCLogger) {.set_logger_output = &set_logger_output,
-                                  .set_logger_level = &set_logger_level,
-                                  .mutex = PTHREAD_MUTEX_INITIALIZER,
-                                  .log_message_with_level_type = &log_message_with_level_type,
-                                  .loggerC_level = LoggerCLevel.new()};
-}
-const struct EquinoxCLoggerClass EquinoxCLogger={ .new = &new };
-
+#endif /* SRC_LOGGERC_LEVEL_H_ */
