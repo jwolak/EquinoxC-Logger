@@ -1,5 +1,5 @@
 /*
- * LoggerC-Console.c
+ * LoggerC-Console-Tests.cpp
  *
  *  Created on: 2022
  *      Author: Janusz Wolak
@@ -37,45 +37,9 @@
  *
  */
 
-#include "LoggerC-Console.h"
 
-#include <stdio.h>
-#include <string.h>
+#include "../EquinoxC-Logger/src/LoggerC-Console.c"
 
-#define MSG_BUFFER_SIZE 3072
-
-static void log_message (struct LoggerCConsole* this, enum LOG_LEVEL_TYPE message_type, char* message) {
-
-  this->loggerC_time.get_timestamp(&this->loggerC_time);
-
-  char message_buffer[MSG_BUFFER_SIZE];
-
-  switch (message_type) {
-    case ERROR:
-      strncpy(message_buffer, "[ERROR]: ", MSG_BUFFER_SIZE);
-      strncat(message_buffer, message, MSG_BUFFER_SIZE);
-      break;
-
-    case WARNING:
-      strncpy(message_buffer, "[WARNING]: ", MSG_BUFFER_SIZE);
-      strncat(message_buffer, message, MSG_BUFFER_SIZE);
-      break;
-
-    case DEBUG:
-      strncpy(message_buffer, "[DEBUG]: ", MSG_BUFFER_SIZE);
-      strncat(message_buffer, message, MSG_BUFFER_SIZE);
-      break;
-  }
-
-  fprintf(stderr, "%s\n", message_buffer);
-
+namespace {
 }
-
-static struct LoggerCConsole new() {
-  printf("%s", "Object LoggerCConsole created\n");
-  return (struct LoggerCConsole) {.log_message = &log_message,
-                                  .loggerC_time = LoggerCTime.new()
-                                 };
-}
-const struct LoggerCConsoleClass LoggerCConsole={ .new = &new };
 
