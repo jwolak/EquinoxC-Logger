@@ -43,7 +43,6 @@
 
 void setUp(void) {
     // set stuff up here
-  //struct LoggerCConsole logger_console = LoggerCConsole.new();
 }
 
 void tearDown(void) {
