@@ -1,5 +1,5 @@
 /*
- * LoggerC-Time.c
+ * LoggerC-Time-Tests.c
  *
  *  Created on: 2022
  *      Author: Janusz Wolak
@@ -37,37 +37,12 @@
  *
  */
 
-#include "LoggerC-Time.h"
+#include "unity.h"
 
-#include <stdio.h>
-#include <time.h>
+void Get_Timestamp_Test(void) {
 
-#define LOG_TIMESTAMP_LENGTH  100
-#define TIMESTAMP_FORMAT    "%c"
-
-static char* get_timestamp (struct LoggerCTime* this) {
-
-
-
-  char iperf_timestrerr_debug[LOG_TIMESTAMP_LENGTH];
-  time_t now;
-     struct tm *ltm = NULL;
-     char *ct = NULL;
-
-   time(&now);
-   ltm = localtime(&now);
-   strftime(iperf_timestrerr_debug, sizeof(iperf_timestrerr_debug), TIMESTAMP_FORMAT, ltm);
-   ct = iperf_timestrerr_debug;
-
-  printf("%s %s\n", "get_timestamp called: ", ct);
-
+  struct LoggerCTime loggerC_time = LoggerCTime.new();
+  loggerC_time.get_timestamp(&loggerC_time);
 }
-
-static struct LoggerCTime newLoggerCTime() {
-  printf("%s", "Object LoggerCTime created\n");
-  return (struct LoggerCTime) {.get_timestamp = &get_timestamp
-                               };
-}
-const struct LoggerCTimeClass LoggerCTime={ .new = &newLoggerCTime };
 
 

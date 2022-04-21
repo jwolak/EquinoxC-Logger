@@ -41,6 +41,11 @@
 #include "../EquinoxC-Logger/src/LoggerC-Console.c"
 #include "../EquinoxC-Logger/src/LoggerC-Time.c"
 
+#include <stdio.h>
+#include <string.h>
+
+#define MESSAGE_FOR_TEST  "Test message"
+
 void setUp(void) {
     // set stuff up here
 }
@@ -49,14 +54,20 @@ void tearDown(void) {
     // clean stuff up here
 }
 
-void test_function_should_doBlahAndBlah(void) {
-    //test stuff
+void Log_Message_ERROR(void) {
+
   struct LoggerCConsole logger_console = LoggerCConsole.new();
-  logger_console.log_message(&logger_console, ERROR, "Test");
-  TEST_ASSERT_EQUAL_STRING("t", "t");
+  logger_console.log_message(&logger_console, ERROR, MESSAGE_FOR_TEST);
 }
 
-void test_function_should_doAlsoDoBlah(void) {
-    //more test stuff
+void Log_Message_DEBUG(void) {
+
+  struct LoggerCConsole logger_console = LoggerCConsole.new();
+  logger_console.log_message(&logger_console, DEBUG, MESSAGE_FOR_TEST);
 }
 
+void Log_Message_WARNING(void) {
+
+  struct LoggerCConsole logger_console = LoggerCConsole.new();
+  logger_console.log_message(&logger_console, WARNING, MESSAGE_FOR_TEST);
+}
