@@ -41,10 +41,11 @@
 #include <stdio.h>
 
 void Get_Timestamp_Test(void) {
+  char timestamp_buffer[150];
   struct LoggerCTime loggerC_time = LoggerCTime.new();
-  printf("%s", "The current timestamp is: ");
-  loggerC_time.get_timestamp(&loggerC_time);
-  printf("\n");
+  loggerC_time.get_timestamp(&loggerC_time, timestamp_buffer);
+  printf("%s%s\n", "The current timestamp is: ", timestamp_buffer);
+
 }
 
 

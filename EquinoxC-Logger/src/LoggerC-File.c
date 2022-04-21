@@ -41,18 +41,55 @@
 
 
 #include <stdio.h>
+#include <stdlib.h>
 
-static void log_message (struct LoggerCFile* this, enum LOG_LEVEL_TYPE message_type, char* message) {
+#define LOG_MSG_BUFFER_SIZE           3072
+#define LOG_TIMESTAMP_LENGTH_TO_FILE  150
+#define LOG_FILE_NAME                 "logs.log"
+#define FILE_OPEN_MODE                "a"
 
-  this->loggerC_time.get_timestamp(&this->loggerC_time);
+static void log_message_to_file (struct LoggerCFile* this, enum LOG_LEVEL_TYPE message_type, char* message) {
+
+  char log_message_buffer[LOG_MSG_BUFFER_SIZE];
+  char timestamp_buffer[LOG_TIMESTAMP_LENGTH_TO_FILE];
+
+  FILE *fd_log_file;
+
+  fd_log_file = fopen(LOG_FILE_NAME, FILE_OPEN_MODE);
+
+  if (fd_log_file == NULL) {
+    printf("Failed to open/create log file!");
+    exit(1);
+  }
+
+  switch (message_type) {
+    case ERROR:
+      this->loggerC_time.get_timestamp(&this->loggerC_time, timestamp_buffer);
+      sprintf(log_message_buffer, "[%s] [ERROR]: %s\n", timestamp_buffer, message);
+      fprintf(fd_log_file, "%s", log_message_buffer);
+      break;
+
+    case WARNING:
+      this->loggerC_time.get_timestamp(&this->loggerC_time, timestamp_buffer);
+      sprintf(log_message_buffer, "[%s] [WARNING]: %s\n", timestamp_buffer, message);
+      fprintf(fd_log_file, "%s", log_message_buffer);
+      break;
+
+    case DEBUG:
+      this->loggerC_time.get_timestamp(&this->loggerC_time, timestamp_buffer);
+      sprintf(log_message_buffer, "[%s] [DEBUG]: %s\n", timestamp_buffer, message);
+      fprintf(fd_log_file, "%s", log_message_buffer);
+      break;
+  }
+
+  fclose(fd_log_file);
 
 }
 
-static struct LoggerCFile new() {
-  printf("%s", "Object LoggerCFile created\n");
-  return (struct LoggerCFile) {.log_message = &log_message,
+static struct LoggerCFile newLoggerCFile() {
+  return (struct LoggerCFile) {.log_message_to_file = &log_message_to_file,
                                .loggerC_time = LoggerCTime.new()
                               };
 }
-const struct LoggerCFileClass LoggerCFile={ .new = &new };
+const struct LoggerCFileClass LoggerCFile={ .new = &newLoggerCFile };
 

@@ -46,7 +46,7 @@
 struct LoggerCFile {
 
   /*public*/
-  void (*log_message)(struct LoggerCFile* this, enum LOG_LEVEL_TYPE message_type, char* message);
+  void (*log_message_to_file)(struct LoggerCFile* this, enum LOG_LEVEL_TYPE message_type, char* message);
 
  /* private*/
   struct LoggerCTime loggerC_time;

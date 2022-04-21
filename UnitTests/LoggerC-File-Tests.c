@@ -1,5 +1,5 @@
 /*
- * LoggerC-Console-Tests.cpp
+ * LoggerC-File-Tests.c
  *
  *  Created on: 2022
  *      Author: Janusz Wolak
@@ -38,36 +38,24 @@
  */
 
 #include "unity.h"
-#include "../EquinoxC-Logger/src/LoggerC-Console.c"
-#include "../EquinoxC-Logger/src/LoggerC-Time.c"
-
 #include <stdio.h>
-#include <string.h>
 
-#define MESSAGE_FOR_TEST  "Test message log into console"
+#include "../EquinoxC-Logger/src/LoggerC-File.c"
 
-void setUp(void) {
-    // set stuff up here
+#define FILE_MESSAGE_FOR_TEST "File message test log into file"
+
+void Log_ERROR_To_Log_File_Test() {
+  struct LoggerCFile loggerC_file = LoggerCFile.new();
+  loggerC_file.log_message_to_file(&loggerC_file, ERROR, FILE_MESSAGE_FOR_TEST);
 }
 
-void tearDown(void) {
-    // clean stuff up here
+void Log_WARNING_To_Log_File_Test() {
+  struct LoggerCFile loggerC_file = LoggerCFile.new();
+  loggerC_file.log_message_to_file(&loggerC_file, WARNING, FILE_MESSAGE_FOR_TEST);
 }
 
-void Log_Message_ERROR(void) {
-
-  struct LoggerCConsole logger_console = LoggerCConsole.new();
-  logger_console.log_message(&logger_console, ERROR, MESSAGE_FOR_TEST);
+void Log_DEBUG_To_Log_File_Test() {
+  struct LoggerCFile loggerC_file = LoggerCFile.new();
+  loggerC_file.log_message_to_file(&loggerC_file, DEBUG, FILE_MESSAGE_FOR_TEST);
 }
 
-void Log_Message_DEBUG(void) {
-
-  struct LoggerCConsole logger_console = LoggerCConsole.new();
-  logger_console.log_message(&logger_console, DEBUG, MESSAGE_FOR_TEST);
-}
-
-void Log_Message_WARNING(void) {
-
-  struct LoggerCConsole logger_console = LoggerCConsole.new();
-  logger_console.log_message(&logger_console, WARNING, MESSAGE_FOR_TEST);
-}

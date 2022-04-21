@@ -42,26 +42,28 @@
 #include <stdio.h>
 #include <string.h>
 
-#define LOG_MSG_BUFFER_SIZE 3072
+#define LOG_MSG_BUFFER_SIZE               3072
+#define LOG_TIMESTAMP_LENGTH_TO_CONSOLE   150
 
 static void log_message (struct LoggerCConsole* this, enum LOG_LEVEL_TYPE message_type, char* message) {
 
   char log_message_buffer[LOG_MSG_BUFFER_SIZE];
+  char timestamp_buffer[LOG_TIMESTAMP_LENGTH_TO_CONSOLE];
 
   switch (message_type) {
     case ERROR:
-      this->loggerC_time.get_timestamp(&this->loggerC_time);
-      sprintf(log_message_buffer, " [ERROR]: %s", message);
+      this->loggerC_time.get_timestamp(&this->loggerC_time, timestamp_buffer);
+      sprintf(log_message_buffer, "[%s] [ERROR]: %s", timestamp_buffer, message);
       break;
 
     case WARNING:
-      this->loggerC_time.get_timestamp(&this->loggerC_time);
-      sprintf(log_message_buffer, " [WARNING]: %s", message);
+      this->loggerC_time.get_timestamp(&this->loggerC_time, timestamp_buffer);
+      sprintf(log_message_buffer, "[%s] [WARNING]: %s", timestamp_buffer, message);
       break;
 
     case DEBUG:
-      this->loggerC_time.get_timestamp(&this->loggerC_time);
-      sprintf(log_message_buffer, " [DEBUG]: %s", message);
+      this->loggerC_time.get_timestamp(&this->loggerC_time, timestamp_buffer);
+      sprintf(log_message_buffer, "[%s] [DEBUG]: %s", timestamp_buffer, message);
       break;
   }
 

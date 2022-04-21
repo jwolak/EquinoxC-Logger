@@ -77,13 +77,13 @@ static void log_message_with_level_type (struct EquinoxCLogger *this, enum LOG_L
         break;
 
       case OUT_FILE:
-        this->loggerC_file.log_message(&this->loggerC_file, current_set_logger_level, log_message_buffer);
+        this->loggerC_file.log_message_to_file(&this->loggerC_file, current_set_logger_level, log_message_buffer);
         break;
 
       case CONSOLE_AND_FILE:
       default:
         this->loggerC_console.log_message(&this->loggerC_console, current_set_logger_level, log_message_buffer);
-        this->loggerC_file.log_message(&this->loggerC_file, current_set_logger_level, log_message_buffer);
+        this->loggerC_file.log_message_to_file(&this->loggerC_file, current_set_logger_level, log_message_buffer);
         break;
     }
 

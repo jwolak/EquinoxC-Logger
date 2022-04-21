@@ -41,11 +41,12 @@
 
 #include <stdio.h>
 #include <time.h>
+#include <string.h>
 
 #define LOG_TIMESTAMP_LENGTH  150
 #define TIMESTAMP_FORMAT    "%c"
 
-static void get_timestamp(struct LoggerCTime *this) {
+static void get_timestamp(struct LoggerCTime *this, char* timestamp_ouput_buf) {
 
   char timestamp_buffer[LOG_TIMESTAMP_LENGTH];
   time_t time_now;
@@ -55,7 +56,7 @@ static void get_timestamp(struct LoggerCTime *this) {
   local_time = localtime(&time_now);
   strftime(timestamp_buffer, sizeof(timestamp_buffer), TIMESTAMP_FORMAT, local_time);
 
-  printf("[%s]", timestamp_buffer);
+  strncpy(timestamp_ouput_buf, timestamp_buffer, LOG_TIMESTAMP_LENGTH);
 }
 
 static struct LoggerCTime newLoggerCTime() {
