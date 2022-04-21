@@ -37,9 +37,27 @@
  *
  */
 
-
+#include "unity.h"
 #include "../EquinoxC-Logger/src/LoggerC-Console.c"
+#include "../EquinoxC-Logger/src/LoggerC-Time.c"
 
-namespace {
+void setUp(void) {
+    // set stuff up here
+  //struct LoggerCConsole logger_console = LoggerCConsole.new();
+}
+
+void tearDown(void) {
+    // clean stuff up here
+}
+
+void test_function_should_doBlahAndBlah(void) {
+    //test stuff
+  struct LoggerCConsole logger_console = LoggerCConsole.new();
+  logger_console.log_message(&logger_console, ERROR, "Test");
+  TEST_ASSERT_EQUAL_STRING("t", "t");
+}
+
+void test_function_should_doAlsoDoBlah(void) {
+    //more test stuff
 }
 

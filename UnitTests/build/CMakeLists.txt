@@ -1,13 +1,8 @@
-cmake_minimum_required(VERSION 2.6)
-set(CMAKE_CXX_STANDARD 11)
-project (UnitTestsOfEquinoxC-Logger) 
-# Locate GTest
-find_package(GTest REQUIRED)
-include_directories(${GTEST_INCLUDE_DIRS})
+cmake_minimum_required(VERSION 2.8.9)
+set(CMAKE_C_STANDARD 11)
+project (EquinoxC-Logger)
+include_directories(/home/janusz/Downloads/Unity/src)
+link_directories(/home/janusz/Downloads/Unity)
+add_executable(UnitTestsOfEquinoxC-Logger.x86 ../Main-Tests-Run.c)
 
-
-# Link runTests with what we want to test and the GTest and pthread library
-add_executable(UnitTestsOfEquinoxC-Logger.x86 ../Main-Tests-Run.cpp)
-
-target_link_libraries(UnitTestsOfEquinoxC-Logger.x86 ${GTEST_LIBRARIES} pthread)
-target_link_libraries(UnitTestsOfEquinoxC-Logger.x86 ${GTEST_LIBRARIES} gmock)
+target_link_libraries(UnitTestsOfEquinoxC-Logger.x86 libunity.a)

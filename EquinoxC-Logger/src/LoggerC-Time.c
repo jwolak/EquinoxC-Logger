@@ -47,11 +47,11 @@ static char* get_timestamp (struct LoggerCTime* this) {
 
 }
 
-static struct LoggerCTime new() {
+static struct LoggerCTime newLoggerCTime() {
   printf("%s", "Object LoggerCTime created\n");
   return (struct LoggerCTime) {.get_timestamp = &get_timestamp
                                };
 }
-const struct LoggerCTimeClass LoggerCTime={ .new = &new };
+const struct LoggerCTimeClass LoggerCTime={ .new = &newLoggerCTime };
 
 
