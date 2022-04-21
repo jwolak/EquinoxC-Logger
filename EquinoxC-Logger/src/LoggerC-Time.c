@@ -42,29 +42,23 @@
 #include <stdio.h>
 #include <time.h>
 
-#define LOG_TIMESTAMP_LENGTH  100
+#define LOG_TIMESTAMP_LENGTH  150
 #define TIMESTAMP_FORMAT    "%c"
 
-static char* get_timestamp (struct LoggerCTime* this) {
+static void get_timestamp(struct LoggerCTime *this) {
 
+  char timestamp_buffer[LOG_TIMESTAMP_LENGTH];
+  time_t time_now;
+  struct tm *local_time = NULL;
 
+  time(&time_now);
+  local_time = localtime(&time_now);
+  strftime(timestamp_buffer, sizeof(timestamp_buffer), TIMESTAMP_FORMAT, local_time);
 
-  char iperf_timestrerr_debug[LOG_TIMESTAMP_LENGTH];
-  time_t now;
-     struct tm *ltm = NULL;
-     char *ct = NULL;
-
-   time(&now);
-   ltm = localtime(&now);
-   strftime(iperf_timestrerr_debug, sizeof(iperf_timestrerr_debug), TIMESTAMP_FORMAT, ltm);
-   ct = iperf_timestrerr_debug;
-
-  printf("%s %s\n", "get_timestamp called: ", ct);
-
+  printf("[%s]", timestamp_buffer);
 }
 
 static struct LoggerCTime newLoggerCTime() {
-  printf("%s", "Object LoggerCTime created\n");
   return (struct LoggerCTime) {.get_timestamp = &get_timestamp
                                };
 }

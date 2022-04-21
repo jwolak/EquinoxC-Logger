@@ -38,11 +38,13 @@
  */
 
 #include "unity.h"
+#include <stdio.h>
 
 void Get_Timestamp_Test(void) {
-
   struct LoggerCTime loggerC_time = LoggerCTime.new();
+  printf("%s", "The current timestamp is: ");
   loggerC_time.get_timestamp(&loggerC_time);
+  printf("\n");
 }
 
 

@@ -59,34 +59,36 @@ static void set_logger_output(struct EquinoxCLogger *this, enum LOG_OUTPUT_TYPE 
 
 static void log_message_with_level_type (struct EquinoxCLogger *this, enum LOG_LEVEL_TYPE logger_new_level, const char* format, ...) {
 
-  va_list argp;
-  char log_message_buffer[LOG_MESSAGE_BUFFER_SIZE] = { 0 };
-  va_start(argp, format);
+  enum LOG_LEVEL_TYPE current_set_logger_level = this->loggerC_level.get_loggerC_level(&this->loggerC_level);
 
-  vsnprintf(log_message_buffer, sizeof(log_message_buffer), format, argp);
 
-  enum LOG_LEVEL_TYPE log_level = this->loggerC_level.get_loggerC_level(&this->loggerC_level);
-  enum LOG_OUTPUT_TYPE log_output_type = this->loggerC_output.get_loggerC_output(&this->loggerC_output);
+  if (logger_new_level <= current_set_logger_level) {
 
-  switch (log_output_type) {
-    case CONSOLE:
-      this->loggerC_console.log_message(&this->loggerC_console, log_level, log_message_buffer);
-      break;
+    va_list argp;
+    char log_message_buffer[LOG_MESSAGE_BUFFER_SIZE] = { 0 };
+    va_start(argp, format);
 
-    case OUT_FILE:
-      this->loggerC_file.log_message(&this->loggerC_file, log_level, log_message_buffer);
-      break;
+    vsnprintf(log_message_buffer, sizeof(log_message_buffer), format, argp);
+    enum LOG_OUTPUT_TYPE log_output_type = this->loggerC_output.get_loggerC_output(&this->loggerC_output);
 
-    case CONSOLE_AND_FILE:
-    default:
-      this->loggerC_console.log_message(&this->loggerC_console, log_level, log_message_buffer);
-      this->loggerC_file.log_message(&this->loggerC_file, log_level, log_message_buffer);
-      break;
+    switch (log_output_type) {
+      case CONSOLE:
+        this->loggerC_console.log_message(&this->loggerC_console, current_set_logger_level, log_message_buffer);
+        break;
+
+      case OUT_FILE:
+        this->loggerC_file.log_message(&this->loggerC_file, current_set_logger_level, log_message_buffer);
+        break;
+
+      case CONSOLE_AND_FILE:
+      default:
+        this->loggerC_console.log_message(&this->loggerC_console, current_set_logger_level, log_message_buffer);
+        this->loggerC_file.log_message(&this->loggerC_file, current_set_logger_level, log_message_buffer);
+        break;
+    }
+
+    va_end(argp);
   }
-
-  va_end(argp);
-
-  printf("%s", "Log Message\n");
 }
 
 static struct EquinoxCLogger new() {

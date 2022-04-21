@@ -42,7 +42,7 @@
 
 struct LoggerCTime {
   /*public*/
-  char* (*get_timestamp)(struct LoggerCTime* this);
+  void (*get_timestamp)(struct LoggerCTime* this);
 };
 
 extern const struct LoggerCTimeClass {

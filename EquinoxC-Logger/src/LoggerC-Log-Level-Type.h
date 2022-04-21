@@ -41,9 +41,10 @@
 #define SRC_LOGGERC_LOG_LEVEL_TYPE_H_
 
 enum LOG_LEVEL_TYPE {
-  ERROR   = 1,
-  WARNING = 2,
-  DEBUG   = 3,
+  DISABLED = 0,
+  ERROR    = 1,
+  WARNING  = 2,
+  DEBUG    = 3,
 };
 
 #endif /* SRC_LOGGERC_LOG_LEVEL_TYPE_H_ */
