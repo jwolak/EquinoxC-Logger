@@ -44,7 +44,7 @@ make
 
 Include "LoggerC.h" from "EquinoxC-Logger/src/" to your source code:
 ```sh
-See: Source/main.cpp
+See: src/main.cpp
 ```
 ```sh
 #include <stdio.h>
