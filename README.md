@@ -1,5 +1,5 @@
 # EquinoxC logging engine
-**Thread safety C logger with MACRO interface**
+**Thread safety C99/C11 logger with MACRO interface**
 
 **Logger with to support logging to file, console or both. Four levels avaliable:**
 - Error 
@@ -13,7 +13,7 @@
 - settable output direction (console, file or both)
 - interface as enjoyable C-style macros
 - powered by C99/C11 (no mistake..I've not meant C++11)
-- unit tests powered by Unity (no...no 3D) from: https://github.com/ThrowTheSwitch/Unity
+- unit tests powered by Unity (no...not 3D) taken from: https://github.com/ThrowTheSwitch/Unity
 
 
 ## Building for source
@@ -29,7 +29,7 @@ make
 ###### For UnitTests:
 
 ```sh
-To build Unity test framework (https://github.com/ThrowTheSwitch/Unity)
+To build Unity test framework (visit: https://github.com/ThrowTheSwitch/Unity)
 cd UnityTestFramework/Unity/
 cmake CMakeLists.txt
 make
