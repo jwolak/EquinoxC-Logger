@@ -2,6 +2,7 @@
 #include "LoggerC-Time-Tests.c"
 #include "LoggerC-File-Tests.c"
 #include "LoggerC-Level-Tests.c"
+#include "LoggerC-Output-Tests.c"
 
 
 
@@ -23,5 +24,11 @@ int main(void) {
     RUN_TEST(Get_Logger_Level_Set_To_DEBUG);
     RUN_TEST(Get_Logger_Level_Set_To_WARNING);
     RUN_TEST(Get_Logger_Level_Set_To_DISBALED);
+    RUN_TEST(Set_Logger_Output_To_CONSOLE);
+    RUN_TEST(Set_Logger_Output_To_OUT_FILE);
+    RUN_TEST(Set_Logger_Output_To_CONSOLE_AND_FILE);
+    RUN_TEST(Get_Logger_Output_Set_To_CONSOLE);
+    RUN_TEST(Get_Logger_Output_Set_To_OUT_FILE);
+    RUN_TEST(Get_Logger_Output_Set_To_CONSOLE_AND_FILE);
     return UNITY_END();
 }

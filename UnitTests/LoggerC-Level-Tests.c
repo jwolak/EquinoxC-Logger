@@ -38,7 +38,6 @@
  */
 
 #include "unity.h"
-#include <stdio.h>
 
 #include "../EquinoxC-Logger/src/LoggerC-Level.c"
 

@@ -1,5 +1,5 @@
 /*
- *  LoggerC-Output.c
+ * LoggerC-Output-Tests.c
  *
  *  Created on: 2022
  *      Author: Janusz Wolak
@@ -37,22 +37,55 @@
  *
  */
 
-#include "LoggerC-Output.h"
+#include "unity.h"
 
-#include <stdio.h>
+#include "../EquinoxC-Logger/src/LoggerC-Output.c"
 
-static void set_loggerC_output (struct LoggerCOutput* this, enum LOG_OUTPUT_TYPE log_output_type) {
-  this->logger_output = log_output_type;
+
+void Set_Logger_Output_To_CONSOLE() {
+
+  struct LoggerCOutput loggerC_output = LoggerCOutput.new();
+  loggerC_output.set_loggerC_output(&loggerC_output, CONSOLE);
+
+  TEST_ASSERT_EQUAL(CONSOLE, loggerC_output.logger_output);
 }
 
-static enum LOG_OUTPUT_TYPE get_loggerC_output (struct LoggerCOutput* this) {
-    return this->logger_output;
+void Set_Logger_Output_To_OUT_FILE() {
+
+  struct LoggerCOutput loggerC_output = LoggerCOutput.new();
+  loggerC_output.set_loggerC_output(&loggerC_output, OUT_FILE);
+
+  TEST_ASSERT_EQUAL(OUT_FILE, loggerC_output.logger_output);
 }
 
+void Set_Logger_Output_To_CONSOLE_AND_FILE() {
 
-static struct LoggerCOutput newLoggerCOutput() {
-  return (struct LoggerCOutput) {.set_loggerC_output = &set_loggerC_output,
-                                 .get_loggerC_output = &get_loggerC_output
-                                };
+  struct LoggerCOutput loggerC_output = LoggerCOutput.new();
+  loggerC_output.set_loggerC_output(&loggerC_output, CONSOLE_AND_FILE);
+
+  TEST_ASSERT_EQUAL(CONSOLE_AND_FILE, loggerC_output.logger_output);
 }
-const struct LoggerCOutputClass LoggerCOutput={ .new = &newLoggerCOutput };
+
+void Get_Logger_Output_Set_To_CONSOLE() {
+
+  struct LoggerCOutput loggerC_output = LoggerCOutput.new();
+  loggerC_output.logger_output = CONSOLE;
+
+  TEST_ASSERT_EQUAL(CONSOLE, loggerC_output.get_loggerC_output(&loggerC_output));
+}
+
+void Get_Logger_Output_Set_To_OUT_FILE() {
+
+  struct LoggerCOutput loggerC_output = LoggerCOutput.new();
+  loggerC_output.logger_output = OUT_FILE;
+
+  TEST_ASSERT_EQUAL(OUT_FILE, loggerC_output.get_loggerC_output(&loggerC_output));
+}
+
+void Get_Logger_Output_Set_To_CONSOLE_AND_FILE() {
+
+  struct LoggerCOutput loggerC_output = LoggerCOutput.new();
+  loggerC_output.logger_output = CONSOLE_AND_FILE;
+
+  TEST_ASSERT_EQUAL(CONSOLE_AND_FILE, loggerC_output.get_loggerC_output(&loggerC_output));
+}
