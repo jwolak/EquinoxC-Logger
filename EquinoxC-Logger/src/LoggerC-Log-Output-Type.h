@@ -1,5 +1,5 @@
 /*
- * LoggerC-Console-Tests.cpp
+ * LoggerC-Log-Output-Type.h
  *
  *  Created on: 2022
  *      Author: Janusz Wolak
@@ -37,30 +37,13 @@
  *
  */
 
-#include "unity.h"
-#include "../EquinoxC-Logger/src/LoggerC-Console.c"
-#include "../EquinoxC-Logger/src/LoggerC-Time.c"
+#ifndef SRC_LOGGERC_LOG_OUTPUT_TYPE_H_
+#define SRC_LOGGERC_LOG_OUTPUT_TYPE_H_
 
-#include <stdio.h>
-#include <string.h>
+enum LOG_OUTPUT_TYPE {
+  CONSOLE           = 1,
+  OUT_FILE          = 2,
+  CONSOLE_AND_FILE  = 3
+};
 
-#define MESSAGE_FOR_TEST  "Test message log into console"
-
-
-void Log_Message_ERROR(void) {
-
-  struct LoggerCConsole logger_console = LoggerCConsole.new();
-  logger_console.log_message(&logger_console, ERROR, MESSAGE_FOR_TEST);
-}
-
-void Log_Message_DEBUG(void) {
-
-  struct LoggerCConsole logger_console = LoggerCConsole.new();
-  logger_console.log_message(&logger_console, DEBUG, MESSAGE_FOR_TEST);
-}
-
-void Log_Message_WARNING(void) {
-
-  struct LoggerCConsole logger_console = LoggerCConsole.new();
-  logger_console.log_message(&logger_console, WARNING, MESSAGE_FOR_TEST);
-}
+#endif /* SRC_LOGGERC_LOG_OUTPUT_TYPE_H_ */

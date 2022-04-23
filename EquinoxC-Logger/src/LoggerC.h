@@ -37,8 +37,8 @@
  *
  */
 
-#ifndef SRC_LOGGER_H_
-#define SRC_LOGGER_H_
+#ifndef SRC_LOGGERC_H_
+#define SRC_LOGGERC_H_
 
 #include <pthread.h>
 #include <stdlib.h>
@@ -113,4 +113,4 @@ static void get_logger_instance() {
                             pthread_mutex_unlock(&logger.mutex);\
                            }
 
-#endif /* SRC_LOGGER_H_ */
+#endif /* SRC_LOGGERC_H_ */

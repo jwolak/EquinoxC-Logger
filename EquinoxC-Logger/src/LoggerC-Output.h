@@ -40,11 +40,7 @@
 #ifndef SRC_LOGGERC_OUTPUT_H_
 #define SRC_LOGGERC_OUTPUT_H_
 
-enum LOG_OUTPUT_TYPE {
-  CONSOLE           = 1,
-  OUT_FILE          = 2,
-  CONSOLE_AND_FILE  = 3
-};
+#include "LoggerC-Log-Output-Type.h"
 
 struct LoggerCOutput {
 

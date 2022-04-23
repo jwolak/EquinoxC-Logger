@@ -37,7 +37,7 @@
  *
  */
 
-#include "Logger.h"
+#include "LoggerC.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -47,13 +47,11 @@
 
 static void set_logger_level(struct EquinoxCLogger *this, enum LOG_LEVEL_TYPE logger_new_level ) {
 
-  printf("%s\n", "Set logger level");
   this->loggerC_level.set_loggerC_level(&this->loggerC_level, logger_new_level);
 }
 
 static void set_logger_output(struct EquinoxCLogger *this, enum LOG_OUTPUT_TYPE logger_new_output) {
 
-  printf("%s\n", "Set logger output");
   this->loggerC_output.set_loggerC_output(&this->loggerC_output, logger_new_output);
 }
 
@@ -73,17 +71,17 @@ static void log_message_with_level_type (struct EquinoxCLogger *this, enum LOG_L
 
     switch (log_output_type) {
       case CONSOLE:
-        this->loggerC_console.log_message(&this->loggerC_console, current_set_logger_level, log_message_buffer);
+        this->loggerC_console.log_message(&this->loggerC_console, logger_new_level, log_message_buffer);
         break;
 
       case OUT_FILE:
-        this->loggerC_file.log_message_to_file(&this->loggerC_file, current_set_logger_level, log_message_buffer);
+        this->loggerC_file.log_message_to_file(&this->loggerC_file, logger_new_level, log_message_buffer);
         break;
 
       case CONSOLE_AND_FILE:
       default:
-        this->loggerC_console.log_message(&this->loggerC_console, current_set_logger_level, log_message_buffer);
-        this->loggerC_file.log_message_to_file(&this->loggerC_file, current_set_logger_level, log_message_buffer);
+        this->loggerC_console.log_message(&this->loggerC_console, logger_new_level, log_message_buffer);
+        this->loggerC_file.log_message_to_file(&this->loggerC_file, logger_new_level, log_message_buffer);
         break;
     }
 
@@ -91,8 +89,7 @@ static void log_message_with_level_type (struct EquinoxCLogger *this, enum LOG_L
   }
 }
 
-static struct EquinoxCLogger new() {
-  printf("%s", "Object created\n");
+static struct EquinoxCLogger newEquinoxCLogger() {
   return (struct EquinoxCLogger) {.set_logger_output = &set_logger_output,
                                   .set_logger_level = &set_logger_level,
                                   .mutex = PTHREAD_MUTEX_INITIALIZER,
@@ -103,5 +100,5 @@ static struct EquinoxCLogger new() {
                                   .loggerC_file = LoggerCFile.new()
                                   };
 }
-const struct EquinoxCLoggerClass EquinoxCLogger={ .new = &new };
+const struct EquinoxCLoggerClass EquinoxCLogger={ .new = &newEquinoxCLogger };
 
