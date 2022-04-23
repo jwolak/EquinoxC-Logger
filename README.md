@@ -1,6 +1,8 @@
 # EquinoxC logging engine
 **Thread safety C99/C11 logger with MACRO interface**
 
+***To version written in C++, please visit: https://github.com/jwolak/Equinox-Logger***
+
 **Logger with support logging to file, console or both. Four levels avaliable:**
 - Error 
 - Warning
