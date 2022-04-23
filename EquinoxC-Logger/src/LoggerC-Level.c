@@ -43,22 +43,19 @@
 #include <stdio.h>
 
   enum LOG_LEVEL_TYPE get_loggerC_level (struct LoggerCLevel* this) {
-    printf("%s", "get_loggerC_level called\n");
 
     return this->logger_level;
   }
 
   void set_loggerC_level (struct LoggerCLevel* this, enum LOG_LEVEL_TYPE log_level) {
-    printf("%s", "set_loggerC_level called\n");
 
     this->logger_level = log_level;
   }
 
-static struct LoggerCLevel new() {
-  printf("%s", "Object LoggerCLevel created\n");
+static struct LoggerCLevel newLoggerCLevel() {
   return (struct LoggerCLevel) {.get_loggerC_level = &get_loggerC_level,
                                 .set_loggerC_level = &set_loggerC_level
                                };
 }
-const struct LoggerCLevelClass LoggerCLevel={ .new = &new };
+const struct LoggerCLevelClass LoggerCLevel={ .new = &newLoggerCLevel };
 

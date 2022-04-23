@@ -43,7 +43,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-#define LOG_MESSAGE_BUFFER_SIZE 2048
+#define LOG_MESSAGE_BUFFER_SIZE 4096
 
 static void set_logger_level(struct EquinoxCLogger *this, enum LOG_LEVEL_TYPE logger_new_level ) {
 
