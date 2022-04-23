@@ -40,7 +40,7 @@ make
 ```
 ## Example:
 
-Include "EquinoxLogger/Logger.h" to your source code:
+Include "LoggerC.h" from "EquinoxC-Logger/src/" to your source code:
 ```sh
 See: Source/main.cpp
 ```
