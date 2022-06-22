@@ -68,18 +68,8 @@ extern const struct EquinoxCLoggerClass {
   struct EquinoxCLogger (*new)();
 } EquinoxCLogger;
 
-
-static struct EquinoxCLogger logger;
-static bool created = false;
-
-static void get_logger_instance() {
-  pthread_mutex_lock(&logger.mutex);
-  if (created == false) {
-    logger = EquinoxCLogger.new();
-    created = true;
-  }
-  pthread_mutex_unlock(&logger.mutex);
-}
+void get_logger_instance();
+struct EquinoxCLogger logger;
 
 #define SET_LOG_LEVEL(x) { get_logger_instance();\
                            pthread_mutex_lock(&logger.mutex);\

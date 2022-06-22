@@ -45,6 +45,8 @@
 
 #define LOG_MESSAGE_BUFFER_SIZE 4096
 
+pthread_mutex_t instance_mutex = PTHREAD_MUTEX_INITIALIZER;
+
 static void set_logger_level(struct EquinoxCLogger *this, enum LOG_LEVEL_TYPE logger_new_level ) {
 
   this->loggerC_level.set_loggerC_level(&this->loggerC_level, logger_new_level);
@@ -101,4 +103,18 @@ static struct EquinoxCLogger newEquinoxCLogger() {
                                   };
 }
 const struct EquinoxCLoggerClass EquinoxCLogger={ .new = &newEquinoxCLogger };
+
+
+static bool created = false;
+
+
+
+void get_logger_instance() {
+  pthread_mutex_lock(&instance_mutex);
+  if (created == false) {
+    logger = EquinoxCLogger.new();
+    created = true;
+  }
+  pthread_mutex_unlock(&instance_mutex);
+}
 
