@@ -48,6 +48,9 @@
 #include "LoggerC-Output.h"
 #include "LoggerC-Console.h"
 #include "LoggerC-File.h"
+#include "LoggerC-Super-Global-Instance-Counter.c"
+
+static pthread_mutex_t instance_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 struct EquinoxCLogger {
 
@@ -68,8 +71,17 @@ extern const struct EquinoxCLoggerClass {
   struct EquinoxCLogger (*new)();
 } EquinoxCLogger;
 
-void get_logger_instance();
 struct EquinoxCLogger logger;
+
+static void get_logger_instance() {
+
+  pthread_mutex_lock(&instance_mutex);
+  if (super_global_instance_counter == 0) {
+    logger = EquinoxCLogger.new();
+    ++super_global_instance_counter;
+  }
+  pthread_mutex_unlock(&instance_mutex);
+}
 
 #define SET_LOG_LEVEL(x) { get_logger_instance();\
                            pthread_mutex_lock(&logger.mutex);\
