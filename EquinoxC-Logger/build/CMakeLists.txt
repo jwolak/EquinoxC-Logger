@@ -1,10 +1,8 @@
 cmake_minimum_required(VERSION 2.8.9)
 set(CMAKE_C_STANDARD 11)
-project (EquinoxC-Logger)
 set (SOURCE_FILES_DIR "../src")
-add_executable(EquinoxC-Logger.x86
 
-${SOURCE_FILES_DIR}/main.c
+add_library(EquinoxCLogger STATIC
 
 #headers
 ${SOURCE_FILES_DIR}/LoggerC.h
